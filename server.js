@@ -90,8 +90,8 @@ const addDepartment = () => {
             message: "Enter new department name"
 
         }).then(res => {
-            db.query('INSERT INTO department (department_name) VALUES (?)', {
-                dep_name: res.addDepartment
+            db.query('INSERT INTO department SET ?', {
+                name: res.departmentname
             },
              (err, response) => {
                 if (err) {
