@@ -11,10 +11,8 @@ app.use(express.json());
 const db = mysql.createConnection(
     {
         host: 'localhost',
-        // MySQL username,
         user: 'root',
-        // TODO: Add MySQL password here
-        password: '',
+        password: 'arianny09',
         database: 'cms_db'
     },
     console.log(`Connected to the cms_db database.`)
@@ -46,7 +44,7 @@ inquirer
 
 
 const viewAllDepartments = () => {
-    db.query('SELECT * department', (err, res) => {
+    db.query('SELECT * department', (err, response) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
