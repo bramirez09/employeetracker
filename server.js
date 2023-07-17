@@ -51,6 +51,9 @@ inquirer
             case 'Add a Role':
                 addRole();
                 break;
+            case 'Add a Employee':
+                addEmployee();
+                break;
         }
     });
 
@@ -110,21 +113,89 @@ const addDepartment = () => {
 const addRole = () => {
     db.query('SELECT * from department', (err, response) => {
         const departmentChoices = []
-        for (i = 0; i < response.length; i++){
-            departmentChoices.push({name:response[i].name, value: response[i].id})
-       // console.log({name:response[i].name, value: response[i].id});
-    }
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: 'department',
-            message: 'choose department',
-            choices: departmentChoices
+        for (i = 0; i < response.length; i++) {
+            departmentChoices.push({ name: response[i].name, value: response[i].id })
+            // console.log({name:response[i].name, value: response[i].id});
         }
-    ]).then((answer) =>{
-        console.log(answer);
-    })
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'role',
+                message: 'Enter Title'
+            },
+            {
+                type: 'input',
+                name: 'salary',
+                message: 'Enter Salary amount'
+            },
+            {
+                type: 'list',
+                name: 'department',
+                message: 'Choose Department',
+                choices: departmentChoices
+            },
+        ]).then(answer => {
+            db.query('INSERT INTO role SET ?', {
+                title: answer.role, salary: answer.salary, department_id: answer.department
+            },
+                (err, response) => {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        console.log("Role successfully added!")
+                    }
+                })
+        })
     })
 }
-  // const addEmployee =
-  // const updateEmployeeRole = 
+
+const addEmployee = () => {
+    db.query('SELECT * from role', (err, response) => {
+        const roleChoices = []
+        for (i = 0; i < response.length; i++) {
+            roleChoices.push({ name: response[i].name, value: response[i].id })
+        }
+        db.query('SELECT * from employee', (err, response) => {
+            const employeeChoices = []
+            for (i = 0; i < response.length; i++) {
+                employeeChoices.push({ name: response[i].name, value: response[i].id })
+            }
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'firstname',
+                    message: 'Enter employee first name'
+                },
+                {
+                    type: 'input',
+                    name: 'lastname',
+                    message: 'Enter employee last name'
+                },
+                {
+                    type: 'list',
+                    name: 'roles',
+                    message: 'Select employee title',
+                    choices: roleChoices
+                },
+                {
+                    type: 'list',
+                    name: 'manager',
+                    message: 'Select manager of employee',
+                    choices: employeeChoices
+                }
+            ]).then(answer => {
+                db.query('INSERT INTO employee SET ?', {
+                    first_name: answer.firstname, last_name: answer.lastname, role_id: answer.roles, manager_id: answer.manager
+                },
+                    (err, response) => {
+                        if (err) {
+                            console.error(err)
+                        } else {
+                            console.log("Employee successfully added!")
+                        }
+                    })
+            })
+        })
+    })
+}
+  // const updateEmployeeRole =
