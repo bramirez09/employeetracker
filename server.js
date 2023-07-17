@@ -45,6 +45,9 @@ inquirer
             case 'View All Employees':
                 viewAllEmployees();
                 break;
+            case 'Add a Department':
+                addDepartment();
+                break;
         }
     });
 
@@ -78,7 +81,29 @@ const viewAllEmployees = () => {
         }
     })
 }
-  //const addDepartment =
+
+const addDepartment = () => {
+    inquirer.prompt(
+        {
+            type: 'input',
+            name: "departmentname",
+            message: "Enter new department name"
+
+        }).then(res => {
+            db.query('INSERT INTO department (department_name) VALUES (?)', {
+                dep_name: res.addDepartment
+            },
+             (err, response) => {
+                if (err) {
+                    console.error(err)
+                } else {
+                    console.log("Department successfully added!")
+                }
+            })
+        })
+
+}
+
   // const addRole =
   // const addEmployee =
   // const updateEmployeeRole = 
