@@ -54,6 +54,9 @@ inquirer
             case 'Add a Employee':
                 addEmployee();
                 break;
+            case 'Update a Employee':
+                updateEmployeeRole();
+                break;
         }
     });
 
@@ -198,4 +201,24 @@ const addEmployee = () => {
         })
     })
 }
-  // const updateEmployeeRole =
+
+const updateEmployeeRole = () => {
+    db.query('SELECT * from employee', (err, response) => {
+        const employeeChoices = []
+        for (i = 0; i < response.length; i++) {
+            employeeChoices.push({ name: response[i].name, value: response[i].id })
+        }
+        inquirer.prompt([
+            {
+                type: 'List',
+                name: 'employee',
+                Message: 'Select employee to update',
+                choices: employeeChoices
+            }
+        ]).then (answer => {
+            let selectedEmployee = answer.employee.id; 
+            console.log(answer.employee, selectedEmployee);
+        }
+        )
+    })
+}
