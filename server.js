@@ -54,7 +54,7 @@ inquirer
             case 'Add a Employee':
                 addEmployee();
                 break;
-            case 'Update a Employee':
+            case 'Update an Employee Role':
                 updateEmployeeRole();
                 break;
         }
@@ -159,9 +159,9 @@ const addEmployee = () => {
             roleChoices.push({ name: response[i].name, value: response[i].id })
         }
         db.query('SELECT * from employee', (err, response) => {
-            const employeeChoices = []
+            const employeesChoices = []
             for (i = 0; i < response.length; i++) {
-                employeeChoices.push({ name: response[i].name, value: response[i].id })
+                employeesChoices.push({ name: response[i].name, value: response[i].id })
             }
             inquirer.prompt([
                 {
@@ -184,7 +184,7 @@ const addEmployee = () => {
                     type: 'list',
                     name: 'manager',
                     message: 'Select manager of employee',
-                    choices: employeeChoices
+                    choices: employeesChoices
                 }
             ]).then(answer => {
                 db.query('INSERT INTO employee SET ?', {
@@ -206,19 +206,43 @@ const updateEmployeeRole = () => {
     db.query('SELECT * from employee', (err, response) => {
         const employeeChoices = []
         for (i = 0; i < response.length; i++) {
-            employeeChoices.push({ name: response[i].name, value: response[i].id })
+            employeeChoices.push({ name: response[i].first_name, value: response[i].id })
         }
-        inquirer.prompt([
-            {
-                type: 'List',
-                name: 'employee',
-                Message: 'Select employee to update',
-                choices: employeeChoices
+        db.query('SELECT * from role', (err, response) => {
+            const roleChoice = []
+            for (i = 0; i < response.length; i++) {
+                roleChoice.push({ name: response[i].name, value: response[i].id })
             }
-        ]).then (answer => {
-            let selectedEmployee = answer.employee.id; 
-            console.log(answer.employee, selectedEmployee);
-        }
-        )
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employee',
+                    message: 'Select employee to update',
+                    choices: employeeChoices
+                },
+                {
+                    type: 'list',
+                    name: 'newrole',
+                    message: 'What is the new role for the employee?',
+                    choices: roleChoice
+                }
+            ]).then(answer => {
+                let selectedEmployee = answer.employee;
+                //console.log(answer.first_name, selectedEmployee);
+                db.query('UPDATE employee SET ? WHERE CONCATE(employee.id)' = '$(selectedEmployee) ' , {
+                    role_id: answer.newrole
+                },
+                    (err, response) => {
+                        if (err) {
+                            console.error(err)
+                        } else {
+                            console.log("Employee successfully updated!")
+                        }
+                    }
+                )
+
+            }
+            )
+        })
     })
 }
