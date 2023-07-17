@@ -42,7 +42,7 @@ inquirer
             case 'View All Roles':
                 viewAllRoles();
                 break;
-            case 'View All Eployees':
+            case 'View All Employees':
                 viewAllEmployees();
                 break;
         }
