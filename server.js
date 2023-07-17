@@ -48,6 +48,9 @@ inquirer
             case 'Add a Department':
                 addDepartment();
                 break;
+            case 'Add a Role':
+                addRole();
+                break;
         }
     });
 
@@ -93,17 +96,35 @@ const addDepartment = () => {
             db.query('INSERT INTO department SET ?', {
                 name: res.departmentname
             },
-             (err, response) => {
-                if (err) {
-                    console.error(err)
-                } else {
-                    console.log("Department successfully added!")
-                }
-            })
+                (err, response) => {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        console.log("Department successfully added!")
+                    }
+                })
         })
 
 }
 
-  // const addRole =
+const addRole = () => {
+    db.query('SELECT * from department', (err, response) => {
+        const departmentChoices = []
+        for (i = 0; i < response.length; i++){
+            departmentChoices.push({name:response[i].name, value: response[i].id})
+       // console.log({name:response[i].name, value: response[i].id});
+    }
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'department',
+            message: 'choose department',
+            choices: departmentChoices
+        }
+    ]).then((answer) =>{
+        console.log(answer);
+    })
+    })
+}
   // const addEmployee =
   // const updateEmployeeRole = 
