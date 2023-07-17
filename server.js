@@ -1,9 +1,8 @@
 const express = require('express');
-// Import and require mysql2
 const mysql = require('mysql2');
-
-const PORT = process.env.PORT || 3001;
 const app = express();
+const inquirer = require('inquirer');
+const { findSourceMap } = require('module');
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
@@ -20,6 +19,7 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the cms_db database.`)
 );
+
 inquirer
     .prompt([
         {
