@@ -44,15 +44,12 @@ inquirer
 
 
 const viewAllDepartments = () => {
-    db.query('SELECT * department', (err, response) => {
+    db.query('SELECT * from department', (err, response) => {
         if (err) {
-            res.status(500).json({ error: err.message });
-            return;
+            console.error(err)
+        } else {
+            console.table(response);
         }
-        res.json({
-            message: 'success',
-            data: rows
-        });
     })
 }
 
