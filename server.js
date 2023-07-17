@@ -20,21 +20,30 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the cms_db database.`)
 );
+inquirer
+    .prompt([
+        {
+            type: 'list',
+            message: 'What would you like to do?',
+            name: 'menuoptions',
+            choices: ['View All Departments',
+                'View All Roles',
+                'View All Employees',
+                'Add a Department',
+                'Add a Role',
+                'Add a Employee',
+                'Update an Employee Role',
+                "Exit",
+            ],
+        },
+    ]).then((response) => {
+        switch (response.menuoptions) {
+            case 'View All Departments':
+                viewAllDepartments();
+                break;
+        }
+    });
 
-const menuOpt = [
-    {
-        type: 'list',
-        message: 'What would you like to do?',
-        name: 'menuoptions',
-        choices: ['View All Departments',
-            'View All Roles',
-            'View All Employees',
-            'Add a Department',
-            'Add a Role',
-            'Add a Employee',
-            'Update an Employee Role'],
-    }
-]
 
 const viewAllDepartments = () => {
     db.query('SELECT * department', (err, res) => {
