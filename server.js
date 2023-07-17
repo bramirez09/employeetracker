@@ -39,6 +39,12 @@ inquirer
             case 'View All Departments':
                 viewAllDepartments();
                 break;
+            case 'View All Roles':
+                viewAllRoles();
+                break;
+            case 'View All Eployees':
+                viewAllEmployees();
+                break;
         }
     });
 
@@ -53,8 +59,25 @@ const viewAllDepartments = () => {
     })
 }
 
-  //const viewAllRoles = 
-  //const viewAllEmployees =
+const viewAllRoles = () => {
+    db.query('SELECT * from role', (err, response) => {
+        if (err) {
+            console.error(err)
+        } else {
+            console.table(response);
+        }
+    })
+}
+
+const viewAllEmployees = () => {
+    db.query('SELECT * from employee', (err, response) => {
+        if (err) {
+            console.error(err)
+        } else {
+            console.table(response);
+        }
+    })
+}
   //const addDepartment =
   // const addRole =
   // const addEmployee =

@@ -10,7 +10,7 @@ VALUES  (001, "HR"),
         (009, "Tech"),
         (010, "Marketing"); 
 
-INSERT INTO role (id, title, salary, department)
+INSERT INTO role (id, title, salary, department_id)
 VALUE   (101, "Human Resources", 55000, 001),
         (201, "Senior Human Resources", 65000, 001),
         (302, "Implementations", 50000, 002),
@@ -35,20 +35,20 @@ VALUE   (111, 'Dorothy', 'Jackson', 809, null),
         (112, 'Gerren', 'Jest', 709, null),
         (113, 'Nicole', 'Smith', 910, null),
         (114, 'Terri', 'Ridge', 608, null),
-        (114, 'Rich', 'Howard', 508, null),
-        (115, 'Don', 'Hopkins', 407, null), 
-        (116, 'Chase', 'Chasin', 307, 115), 
-        (117, 'Angela', 'Merry', 206, 115), 
-        (118, 'Zach', 'Zackin', 106, 115), 
-        (119, 'Barry', 'Berrin', 905, null), 
-        (120, 'Dennise', 'Aguilar', 804, null), 
-        (121, 'Kassidy', 'Kassin', 603, null ),
-        (122, 'Linda', 'Lynn', 704, null), 
-        (123, 'Lori', 'Couch', 503, 121),
-        (124, 'Eva', 'Plant', 402, null ),
-        (125, 'Rachel', 'Green', 302, 124),
-        (126, 'Colin', 'Yellow', 201, null), 
-        (127, 'Anna', 'Blue', 101, 126);
+        (115, 'Rich', 'Howard', 508, null),
+        (116, 'Don', 'Hopkins', 407, null), 
+        (117, 'Chase', 'Chasin', 307, 115), 
+        (118, 'Angela', 'Merry', 206, 115), 
+        (119, 'Zach', 'Zackin', 106, 115), 
+        (120, 'Barry', 'Berrin', 905, null), 
+        (121, 'Dennise', 'Aguilar', 804, null), 
+        (122, 'Kassidy', 'Kassin', 603, null ),
+        (123, 'Linda', 'Lynn', 704, null), 
+        (124, 'Lori', 'Couch', 503, 121),
+        (125, 'Eva', 'Plant', 402, null ),
+        (126, 'Rachel', 'Green', 302, 124),
+        (127, 'Colin', 'Yellow', 201, null), 
+        (128, 'Anna', 'Blue', 101, 126);
 
 
 
