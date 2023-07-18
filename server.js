@@ -17,9 +17,11 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the cms_db database.`)
 );
-
-inquirer
-    .prompt([
+db.connect(() => {
+    init()
+})
+const init = () => {
+    inquirer.prompt([
         {
             type: 'list',
             message: 'What would you like to do?',
@@ -61,8 +63,8 @@ inquirer
                 exit();
                 break;
         }
-    });
-
+    })
+}
 
 const viewAllDepartments = () => {
     db.query('SELECT * from department', (err, response) => {
@@ -70,8 +72,10 @@ const viewAllDepartments = () => {
             console.error(err)
         } else {
             console.table(response);
+            init();
         }
-    })
+    });
+
 }
 
 const viewAllRoles = () => {
@@ -80,6 +84,7 @@ const viewAllRoles = () => {
             console.error(err)
         } else {
             console.table(response);
+            init();
         }
     })
 }
@@ -90,6 +95,7 @@ const viewAllEmployees = () => {
             console.error(err)
         } else {
             console.table(response);
+            init();
         }
     })
 }
@@ -110,6 +116,7 @@ const addDepartment = () => {
                         console.error(err)
                     } else {
                         console.log("Department successfully added!")
+                        init();
                     }
                 })
         })
@@ -148,7 +155,8 @@ const addRole = () => {
                     if (err) {
                         console.error(err)
                     } else {
-                        console.log("Role successfully added!")
+                        console.log("Role successfully added!");
+                        init();
                     }
                 })
         })
@@ -198,6 +206,7 @@ const addEmployee = () => {
                             console.error(err)
                         } else {
                             console.log("Employee successfully added!")
+                            init();
                         }
                     })
             })
@@ -233,12 +242,13 @@ const updateEmployeeRole = () => {
                 let selectedEmployee = answer.employee;
                 let newRole = answer.newrole;
                 //console.log(answer.first_name, selectedEmployee);
-                db.query('UPDATE employee SET role_id = (?) WHERE id = (?)', [ newRole, selectedEmployee],
+                db.query('UPDATE employee SET role_id = (?) WHERE id = (?)', [newRole, selectedEmployee],
                     (err, response) => {
                         if (err) {
                             console.error(err)
                         } else {
                             console.log("Employee successfully updated!")
+                            init();
                         }
                     }
                 )
@@ -247,4 +257,8 @@ const updateEmployeeRole = () => {
             )
         })
     })
+}
+
+const exit = () => {
+    db.end();
 }

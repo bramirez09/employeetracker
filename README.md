@@ -14,6 +14,7 @@ For this project I built a command-line application to manage a company's employ
 
 ## Visuals
 
+https://drive.google.com/file/d/1Rm-zKrjl4eQHN3SL54X96ao2pRufGQKX/view
 
 ## Installation
 The following programs need to be installed : Node.js, Inquirer package @8.2.4 and MySQL. 
