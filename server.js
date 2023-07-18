@@ -57,6 +57,9 @@ inquirer
             case 'Update an Employee Role':
                 updateEmployeeRole();
                 break;
+            case 'Exit':
+                exit();
+                break;
         }
     });
 
@@ -228,10 +231,9 @@ const updateEmployeeRole = () => {
                 }
             ]).then(answer => {
                 let selectedEmployee = answer.employee;
+                let newRole = answer.newrole;
                 //console.log(answer.first_name, selectedEmployee);
-                db.query('UPDATE employee SET ? WHERE `employee_id` = ?', [ 'employee_id', selectedEmployee], {
-                    role_id: answer.newrole
-                },
+                db.query('UPDATE employee SET role_id = (?) WHERE id = (?)', [ newRole, selectedEmployee],
                     (err, response) => {
                         if (err) {
                             console.error(err)
