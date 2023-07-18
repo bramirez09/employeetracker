@@ -229,7 +229,7 @@ const updateEmployeeRole = () => {
             ]).then(answer => {
                 let selectedEmployee = answer.employee;
                 //console.log(answer.first_name, selectedEmployee);
-                db.query('UPDATE employee SET ? WHERE CONCATE(employee.id)' = '$(selectedEmployee) ' , {
+                db.query('UPDATE employee SET ? WHERE CONCATE(employee.id)' = `${selectedEmployee}` , {
                     role_id: answer.newrole
                 },
                     (err, response) => {
